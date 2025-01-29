@@ -1,0 +1,10 @@
+debug avec vitessPreview pour capturer le dom à chaque test
+msw mock service worker pour remplacer le fetch du navigateur
+service worker monter faux serveur vs serveur pour un lancer server pour un test
+vitess library de test pour les tests js
+vite pour les builds de l'app (plus rapide que webpack, simplifié)
+pnpm pour gerer les depdnance, c'est centralisé, store sur machine, gestion cahé des dependances
+testing-library pour gerer le dom
+test-setup specifique à vitestest pour lancer une config avant tous les tests
+
+cypress à replacer par playwrite et codeceptjs
