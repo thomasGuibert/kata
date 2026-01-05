@@ -107,6 +107,55 @@ paths:
 
 components:
   schemas:
+    Author:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        role:
+          type: string
+          enum: [AUTHOR, EDITOR, ILLUSTRATOR]
+          
+    Publisher:
+      type: object
+      properties:
+        name:
+          type: string
+        country:
+          type: string
+
+    Dimensions:
+      type: object
+      properties:
+        height:
+          type: number
+        width:
+          type: number
+        unit:
+          type: string
+          enum: [cm, inch]
+
+    Price:
+      type: object
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+          example: EUR
+
+    Seller:
+      type: object
+      properties:
+        id:
+          type: string
+        rating:
+          type: number
+        location:
+          type: string
+
     Book:
       type: object
       properties:
@@ -114,22 +163,100 @@ components:
           type: string
         title:
           type: string
+        subtitle:
+          type: string
         authors:
           type: array
           items:
-            type: string
-        language:
-          type: string
+            $ref: '#/components/schemas/Author'
+        publisher:
+          $ref: '#/components/schemas/Publisher'
         publicationDate:
           type: string
           format: date
+        language:
+          type: string
+        pages:
+          type: integer
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        categories:
+          type: array
+          items:
+            type: string
+        condition:
+          type: string
+          enum: [NEW, LIKE_NEW, VERY_GOOD, GOOD, ACCEPTABLE]
         price:
-          type: number
+          $ref: '#/components/schemas/Price'
+        stock:
+          type: integer
+        seller:
+          $ref: '#/components/schemas/Seller'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - isbn
+        - title
+        - authors
+        - publisher
+        - publicationDate
+        - language
+        - price
+        - stock
+        - seller
 
     Books:
       type: array
       items:
         $ref: '#/components/schemas/Book'
+```
+
+Exemple :
+
+```yaml
+{
+    "isbn": "9780747532743",
+    "title": "Harry Potter and the Philosopher's Stone",
+    "subtitle": "Illustrated Edition",
+    "authors": [
+    {
+        "firstName": "J.K.",
+        "lastName": "Rowling",
+        "role": "AUTHOR"
+    }
+    ],
+    "publisher": {
+        "name": "Bloomsbury",
+        "country": "UK"
+    },
+    "publicationDate": "1997-06-26",
+    "language": "en",
+    "pages": 223,
+    "dimensions": {
+        "height": 20.3,
+        "width": 13.3,
+        "unit": "cm"
+    },
+    "categories": ["Fantasy", "Young Adult"],
+    "condition": "VERY_GOOD",
+    "price": {
+        "amount": 6.50,
+        "currency": "EUR"
+    },
+    "stock": 3,
+    "seller": {
+        "id": "seller-42",
+        "rating": 4.7,
+        "location": "France"
+    },
+    "createdAt": "2025-01-01T10:15:30Z",
+    "updatedAt": "2025-01-03T09:00:00Z"
+}
 ```
 
 ---
