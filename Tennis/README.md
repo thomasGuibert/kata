@@ -1,17 +1,17 @@
-# 🎾 Kata de Code – Tennis Scoring
+# 🎾 Kata de Code – Tennis scoreboard
 
 ## 🎯 Objectif
 
-Implémenter un **système de gestion du score d’une compétition de tennis** (type *Roland-Garros*), capable de :
+Implémenter un **système de gestion du score d’une compétition de tennis**, capable de :
 
-* calculer le score d’un match à partir d’un **point marqué par un joueur sur un court** via un call HTTP
+* calculer le score d’un match à partir d’un **point marqué par un joueur sur un court** via l'écoute d'une requête HTTP
 * agréger les scores de **plusieurs matchs joués simultanément**
 * exposer un **tableau de scores global**
 
 ---
 ## 📚 Contexte fonctionnel
 
-Un match de tennis oppose **deux joueurs**.
+Un match de tennis oppose **deux joueurs** et plusieurs matchs peuvent se dérouler dans une même competition. Plusieurs compétitions peuvent être géré en même temps par le système.
 
 ### Règles de scoring
 
@@ -67,7 +67,7 @@ Content-Type: application/json
                 </div>"
 }
 ```
-⚠️Des endpoints supplémentaires peuvent être discutés/ implémentés
+⚠️Des endpoints supplémentaires peuvent être discutés/implémentés
 
 ## 🧪 Exemples de scénarios
 
@@ -85,6 +85,36 @@ A marque 4 points d’affilée
                     <h2>Court 1</h2>
                     <p>Player A 0 - 0 Player B</p>
                     <p>Game : 1 - 0</p>
+                    <p>Sets : 0 – 0</p>
+                </div>
+
+                </div>"
+}
+```
+
+### Jeu multiple
+
+```
+A marque 4 points d’affilée
+→ A gagne le jeu
+A2 et B2 sont en train de jouer
+-> un match avait été lancé
+
+{
+  "display":   "<div class="competition">
+                <h1>Roland-Garros</h1>
+
+                <div class="court">
+                    <h2>Court 1</h2>
+                    <p>Player A 0 - 0 Player B</p>
+                    <p>Game : 1 - 0</p>
+                    <p>Sets : 0 – 0</p>
+                </div>
+
+                <div class="court">
+                    <h2>Court 2</h2>
+                    <p>Player A2 0 - 0 Player B2</p>
+                    <p>Game : 0 - 0</p>
                     <p>Sets : 0 – 0</p>
                 </div>
 
