@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TennisScoreboard.Domain/TennisScoreboard.Domain.csproj" />
+  <Project Path="TennisScoreboardTests/TennisScoreboardTests.csproj" />
+</Solution>
