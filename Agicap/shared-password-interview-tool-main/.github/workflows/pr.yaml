@@ -1,0 +1,39 @@
+name: Pull request
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions: write-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_and_tests:
+    name: Build and tests
+    runs-on: shared-large
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+
+      - name: Build and publish
+        uses: AgicapTech/shared-dotnet-action-lib/build@0c3f0a3719f01e733208002d8f5cea9b737fc203 # v0.3.22
+        with:
+          vault_auth_role: ${{ vars.VAULT_AUTH_ROLE }}
+          dotnet_version: '10.0'
+          projects_to_publish: |
+            ./Account.Domain.UnitTests/Account.Domain.UnitTests.csproj
+            ./Account.Domain/Account.Domain.csproj
+
+      - name: Tests
+        uses: AgicapTech/shared-dotnet-action-lib/test@0c3f0a3719f01e733208002d8f5cea9b737fc203 # v0.3.22
+        with:
+          artifact_name: dotnet_published_projects
+          dotnet_version: '10.0'
+          test_report_name: 'Domain tests report'
+          projects_to_test: |
+            Account.Domain.UnitTests/Account.Domain.UnitTests.dll
